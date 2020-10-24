@@ -8,10 +8,10 @@ public class InputFieldController : MonoBehaviour
     [SerializeField]
     private TMP_InputField inputField;
     [SerializeField]
-    private TextMeshProUGUI descriptionText;
+    private TextMeshProUGUI labelText;
 
     public ReactiveProperty<string> InputProperty { get; } = new ReactiveProperty<string>();
-    public string Description { get => descriptionText.text; set => descriptionText.text = value; }
+    public string Label { get => labelText.text; set => labelText.text = value; }
 
     private void Start()
     {
