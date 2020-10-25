@@ -2,12 +2,19 @@
 using UniRx;
 using UnityEngine;
 
-public class TrivialViewModel : MonoBehaviour
+public class SecretTrivialViewModel : MonoBehaviour
 {
     public FieldContainer inputFieldContainer, outputFieldContainer;
 
     private void Start()
     {
+        inputFieldContainer.AddButton("Menu").OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                ViewManager.main.CurrentView = ViewConfig.Views.Menu;
+            })
+            .AddTo(this);
+
         var nField = inputFieldContainer.AddInputField("Key amount");
         var kField = inputFieldContainer.AddInputField("k");
         var secretField = inputFieldContainer.AddInputField("secret");
@@ -21,9 +28,9 @@ public class TrivialViewModel : MonoBehaviour
             {
                 try
                 {
-                    int n = int.Parse(nField.InputProperty.Value);
-                    int k = int.Parse(kField.InputProperty.Value);
-                    int secret = int.Parse(secretField.InputProperty.Value);
+                    int n = int.Parse(nField.Value);
+                    int k = int.Parse(kField.Value);
+                    int secret = int.Parse(secretField.Value);
                     var keys = new int[n];
                     int lastKey = secret;
                     for (int x = 0; x < keys.Length - 1; x++)

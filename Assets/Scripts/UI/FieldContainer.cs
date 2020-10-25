@@ -7,10 +7,11 @@ public class FieldContainer : MonoBehaviour
     [SerializeField]
     private GameObject inputFieldPrefab, outputFieldPrefab, buttonPrefab;
 
-    public InputFieldController AddInputField(string label)
+    public InputFieldController AddInputField(string label, string defaultValue = "")
     {
         var inputField = Instantiate(inputFieldPrefab, transform).GetComponent<InputFieldController>();
         inputField.Label = label;
+        inputField.Value = defaultValue;
         return inputField;
     }
 

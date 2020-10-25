@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Init.unity
+    guid: e47cbc896f4c5db44961be6c5a1480b0
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 907e26f4a4b850640ac604967e4c6667
+  - enabled: 1
     path: Assets/Scenes/SecretTrivial.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/SecretShamir.unity
+    guid: 20d676a3936451343847edd816ef9e83
   m_configObjects: {}
