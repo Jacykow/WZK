@@ -70,8 +70,15 @@ public class SecretShamirViewModel : MonoBehaviour
                         outputFieldContainer.AddOutputField($"Key {x + 1}").Value = keys[x].ToString();
                     }
 
-                    int keysLeft = t;
                     var randomKeys = new List<int>();
+                    int firstkey = UnityEngine.Random.Range(0, n - t);
+                    int keyLimit = firstkey + t;
+                    for (int x = firstkey; x < keyLimit; x++)
+                    {
+                        randomKeys.Add(x);
+                    }
+                    /*
+                    int keysLeft = t;
                     for (int x = 0; x < n; x++)
                     {
                         if (UnityEngine.Random.value < (float)keysLeft / (n - x))
@@ -87,6 +94,7 @@ public class SecretShamirViewModel : MonoBehaviour
                         randomKeys[swap] = randomKeys[x];
                         randomKeys[x] = temp;
                     }
+                    */
 
                     inputKeys = new InputFieldController[t];
                     for (int x = 0; x < inputKeys.Length; x++)
