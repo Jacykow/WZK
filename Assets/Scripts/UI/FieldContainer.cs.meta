@@ -8,6 +8,8 @@ MonoImporter:
       type: 3}
   - outputFieldPrefab: {fileID: 4466643716509756189, guid: 6cca528c966c43c489005958255af133,
       type: 3}
+  - longOutputFieldPrefab: {fileID: 9135855640371567806, guid: 28f57ea6484b91748a616ab1b0242f55,
+      type: 3}
   - buttonPrefab: {fileID: 6162443302810121036, guid: bc250983eab34ac44bf43f323958b3a4,
       type: 3}
   executionOrder: 0

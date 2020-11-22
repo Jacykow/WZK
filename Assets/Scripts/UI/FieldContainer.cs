@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class FieldContainer : MonoBehaviour
 {
     [SerializeField]
-    private GameObject inputFieldPrefab, outputFieldPrefab, buttonPrefab;
+    private GameObject inputFieldPrefab, outputFieldPrefab, longOutputFieldPrefab, buttonPrefab;
 
     public InputFieldController AddInputField(string label, string defaultValue = "")
     {
@@ -18,6 +18,13 @@ public class FieldContainer : MonoBehaviour
     public OutputFieldController AddOutputField(string label)
     {
         var outputField = Instantiate(outputFieldPrefab, transform).GetComponent<OutputFieldController>();
+        outputField.Label = label;
+        return outputField;
+    }
+
+    public OutputFieldController AddLongOutputField(string label)
+    {
+        var outputField = Instantiate(longOutputFieldPrefab, transform).GetComponent<OutputFieldController>();
         outputField.Label = label;
         return outputField;
     }

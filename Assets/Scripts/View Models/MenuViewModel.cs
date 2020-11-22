@@ -20,5 +20,12 @@ public class MenuViewModel : MonoBehaviour
                 ViewManager.main.CurrentView = ViewConfig.Views.SecretShamir;
             })
             .AddTo(this);
+
+        fieldContainer.AddButton("BBS").OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                ViewManager.main.CurrentView = ViewConfig.Views.BBS;
+            })
+            .AddTo(this);
     }
 }
