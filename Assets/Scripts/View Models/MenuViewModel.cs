@@ -34,5 +34,19 @@ public class MenuViewModel : MonoBehaviour
                 ViewManager.main.CurrentView = ViewConfig.Views.CipherModeComparison;
             })
             .AddTo(this);
+
+        fieldContainer.AddButton("Diffie Hellman").OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                ViewManager.main.CurrentView = ViewConfig.Views.DiffieHellman;
+            })
+            .AddTo(this);
+
+        fieldContainer.AddButton("RSA").OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                ViewManager.main.CurrentView = ViewConfig.Views.RSA;
+            })
+            .AddTo(this);
     }
 }

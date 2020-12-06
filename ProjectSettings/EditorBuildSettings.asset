@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CipherModeComparison.unity
     guid: fb677c0f6fc0cc945b42b7e7787a0441
+  - enabled: 1
+    path: Assets/Scenes/DiffieHellman.unity
+    guid: afae153fe42d01240a0004c39738f06c
+  - enabled: 1
+    path: Assets/Scenes/RSA.unity
+    guid: 906d20957ea21c84a9f4d4d43bb65f47
   m_configObjects: {}
