@@ -7,5 +7,6 @@
         public static string SecretTrivial = "SecretTrivial";
         public static string SecretShamir = "SecretShamir";
         public static string BBS = "BBS";
+        public static string CipherModeComparison = "CipherModeComparison";
     }
 }

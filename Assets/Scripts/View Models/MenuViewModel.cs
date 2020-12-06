@@ -27,5 +27,12 @@ public class MenuViewModel : MonoBehaviour
                 ViewManager.main.CurrentView = ViewConfig.Views.BBS;
             })
             .AddTo(this);
+
+        fieldContainer.AddButton("Cipher Mode Comparison").OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                ViewManager.main.CurrentView = ViewConfig.Views.CipherModeComparison;
+            })
+            .AddTo(this);
     }
 }

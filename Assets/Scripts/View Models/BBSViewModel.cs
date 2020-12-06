@@ -13,12 +13,7 @@ public class BBSViewModel : MonoBehaviour
 
     private void Start()
     {
-        inputFieldContainer.AddButton("Menu").OnClickAsObservable()
-            .Subscribe(_ =>
-            {
-                ViewManager.main.CurrentView = ViewConfig.Views.Menu;
-            })
-            .AddTo(this);
+        inputFieldContainer.AddMenuButton();
 
         var pField = inputFieldContainer.AddInputField("p", "2503");
         var qField = inputFieldContainer.AddInputField("q", "3119");

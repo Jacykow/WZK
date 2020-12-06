@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BBS.unity
     guid: 03182148c7eb7b44abdd3aba2f79757e
+  - enabled: 1
+    path: Assets/Scenes/CipherModeComparison.unity
+    guid: fb677c0f6fc0cc945b42b7e7787a0441
   m_configObjects: {}

@@ -15,12 +15,7 @@ public class SecretShamirViewModel : MonoBehaviour
 
     private void Start()
     {
-        inputFieldContainer.AddButton("Menu").OnClickAsObservable()
-            .Subscribe(_ =>
-            {
-                ViewManager.main.CurrentView = ViewConfig.Views.Menu;
-            })
-            .AddTo(this);
+        inputFieldContainer.AddMenuButton();
 
         var nField = inputFieldContainer.AddInputField("Keys generated", "5");
         var tField = inputFieldContainer.AddInputField("Keys required", "3");
