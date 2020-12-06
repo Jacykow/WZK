@@ -1,53 +1,80 @@
 ﻿using System;
-using System.Collections;
-using System.IO;
-using System.Security.Cryptography;
 using UniRx;
 using UnityEngine;
 
 public class RSAViewModel : MonoBehaviour
 {
-    public FieldContainer inputFieldContainer, outputFieldContainer, textFieldContainer;
-    private InputFieldController textFileInput;
+    public FieldContainer inputFieldContainer, middleContainer, outputFieldContainer;
+    private InputFieldController eField, dField, messageField;
 
     private void Start()
     {
         inputFieldContainer.AddMenuButton();
 
-        textFileInput = inputFieldContainer.AddInputField("Plain Text File", "lorem.txt");
+        var pField = inputFieldContainer.AddInputField("p", RandomLargePrime().ToString());
+        var qField = inputFieldContainer.AddInputField("q", RandomLargePrime().ToString());
 
-        inputFieldContainer.AddButton("Run Ciphers").OnClickAsObservable().
-            Subscribe(_ =>
+        Observable.Merge(
+            pField.InputProperty.AsUnitObservable(),
+            qField.InputProperty.AsUnitObservable(),
+            inputFieldContainer.AddButton("Calculate e and d").OnClickAsObservable()).
+            SelectMany(_ =>
             {
-                StartCoroutine(CipherComparison());
-            }).AddTo(this);
+                middleContainer.Clear();
 
+                try
+                {
+                    int p = int.Parse(pField.Value);
+                    int q = int.Parse(qField.Value);
+
+                    int n = p * q;
+                    int phi = (p - 1) * (q - 1);
+
+                    eField = middleContainer.AddInputField("e", NextSpecialCoprime(phi).ToString());
+                    dField = middleContainer.AddInputField("d", "463"); //TODO e
+                    messageField = middleContainer.AddInputField("message", Random(n).ToString());
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.Message);
+                }
+
+                return Observable.ReturnUnit();
+
+            }).Subscribe(_ =>
+            {
+                try
+                {
+                    int e = int.Parse(eField.Value);
+                    int d = int.Parse(dField.Value);
+                    int msg = int.Parse(messageField.Value);
+
+
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.Message);
+                }
+            }).AddTo(this);
     }
 
-    private IEnumerator CipherComparison()
+    private int RandomLargePrime()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, textFileInput.Value);
-        var plainText = File.ReadAllText(path);
-        outputFieldContainer.Clear();
+        return MathG.NextPrime(UnityEngine.Random.Range(2000, 10000));
+    }
 
-        string message;
-        foreach (CipherMode cipherMode in Enum.GetValues(typeof(CipherMode)))
+    private int Random(int max)
+    {
+        return UnityEngine.Random.Range(1, max);
+    }
+
+    private int NextSpecialCoprime(int phi)
+    {
+        int start = Random(phi);
+        while (!MathG.IsPrime(start)) // TODO add GCD with phi as condition
         {
-            try
-            {
-                var startTime = DateTime.Now;
-                var encryptedtext = Cryptography.Encrypt(plainText, cipherMode);
-                var decryptedtext = Cryptography.Decrypt(encryptedtext, cipherMode);
-                message = DateTime.Now.Subtract(startTime).TotalMilliseconds.ToString("0.##") + " ms";
-                textFieldContainer.Clear();
-                textFieldContainer.AddLongOutputField($"Decrypted Text with {Enum.GetName(typeof(CipherMode), cipherMode)}").Value = decryptedtext.Substring(0, 2000);
-            }
-            catch
-            {
-                message = "Not Supported";
-            }
-            outputFieldContainer.AddOutputField(Enum.GetName(typeof(CipherMode), cipherMode)).Value = message;
-            yield return null;
+            start++;
         }
+        return start;
     }
 }

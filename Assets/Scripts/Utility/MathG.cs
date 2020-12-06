@@ -59,4 +59,25 @@ public struct MathG
         }
         return result;
     }
+
+    public static int NextPrime(int start)
+    {
+        while (!IsPrime(start))
+        {
+            start++;
+        }
+        return start;
+    }
+
+    public static bool IsPrime(int number)
+    {
+        for (int i = 2; i * i <= number; i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

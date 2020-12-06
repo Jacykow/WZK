@@ -172,29 +172,8 @@ public class BBSViewModel : MonoBehaviour
         int start = UnityEngine.Random.Range(1000, 5000);
         do
         {
-            start = NextPrime(start + 1);
+            start = MathG.NextPrime(start + 1);
         } while (start % 4 != 3);
         return start;
-    }
-
-    private int NextPrime(int start)
-    {
-        while (!IsPrime(start))
-        {
-            start++;
-        }
-        return start;
-    }
-
-    private bool IsPrime(int number)
-    {
-        for (int i = 2; i * i <= number; i++)
-        {
-            if (number % i == 0)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 }

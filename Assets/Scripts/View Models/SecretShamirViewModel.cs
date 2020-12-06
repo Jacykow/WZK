@@ -101,7 +101,7 @@ public class SecretShamirViewModel : MonoBehaviour
 
                 return Observable.ReturnUnit();
             })
-            .Subscribe((Action<Unit>)(_ =>
+            .Subscribe(_ =>
             {
                 try
                 {
@@ -152,7 +152,7 @@ public class SecretShamirViewModel : MonoBehaviour
                 {
                     Debug.Log(e.Message);
                 }
-            }))
+            })
             .AddTo(this);
     }
 }
