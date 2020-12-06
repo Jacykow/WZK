@@ -40,7 +40,7 @@ public class CipherModeComparisonViewModel : MonoBehaviour
                 var decryptedtext = Cryptography.Decrypt(encryptedtext, cipherMode);
                 message = DateTime.Now.Subtract(startTime).TotalMilliseconds.ToString("0.##") + " ms";
                 textFieldContainer.Clear();
-                textFieldContainer.AddLongOutputField("Decrypted Text").Value = decryptedtext.Substring(0, 2000);
+                textFieldContainer.AddLongOutputField($"Decrypted Text with {Enum.GetName(typeof(CipherMode), cipherMode)}").Value = decryptedtext.Substring(0, 2000);
             }
             catch
             {
