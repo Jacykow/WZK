@@ -46,4 +46,17 @@ public struct MathG
     {
         return ((a % m) + m) % m;
     }
+
+    public static int ModPow(int a, int b, int m)
+    {
+        a %= m;
+        int result = 1;
+        while (b > 0)
+        {
+            if ((b & 1) > 0) result = (result * a) % m;
+            a = (a * a) % m;
+            b >>= 1;
+        }
+        return result;
+    }
 }

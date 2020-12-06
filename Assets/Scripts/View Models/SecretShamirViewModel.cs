@@ -23,7 +23,8 @@ public class SecretShamirViewModel : MonoBehaviour
         var secretField = inputFieldContainer.AddInputField("Secret", "420");
         var calculateButton = inputFieldContainer.AddButton("Calculate");
 
-        Observable.Merge(nField.InputProperty.AsUnitObservable(),
+        Observable.Merge(
+            nField.InputProperty.AsUnitObservable(),
             tField.InputProperty.AsUnitObservable(),
             pField.InputProperty.AsUnitObservable(),
             secretField.InputProperty.AsUnitObservable(),
