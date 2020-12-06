@@ -105,7 +105,7 @@ public class SecretShamirViewModel : MonoBehaviour
 
                 return Observable.ReturnUnit();
             })
-            .Subscribe(_ =>
+            .Subscribe((Action<Unit>)(_ =>
             {
                 try
                 {
@@ -120,30 +120,35 @@ public class SecretShamirViewModel : MonoBehaviour
                         keys[x] = int.Parse(splitInput[1]);
                     }
 
-                    var l = new float[inputKeys.Length];
-                    for (int x = 0; x < l.Length; x++)
+                    var yl = new int[inputKeys.Length];
+                    for (int x = 0; x < inputKeys.Length; x++)
                     {
-                        l[x] = 1;
-                        for (int y = 0; y < l.Length; y++)
+                        int lTop = 1;
+                        for (int y = 0; y < inputKeys.Length; y++)
                         {
                             if (y == x) continue;
-                            l[x] *= -degrees[y];
+                            lTop *= -degrees[y];
                         }
-                        for (int y = 0; y < l.Length; y++)
+                        int lBottom = 1;
+                        for (int y = 0; y < inputKeys.Length; y++)
                         {
                             if (y == x) continue;
-                            l[x] /= degrees[x] - degrees[y];
+                            lBottom *= degrees[x] - degrees[y];
                         }
-                        secretOutputFieldContainer.AddOutputField($"l{x + 1}; y{x + 1}l{x + 1}").Value = $"{l[x]}; {l[x] * keys[x]}";
+
+                        int l = MathG.ModDivide(lTop, lBottom, prime);
+                        yl[x] = MathG.Mod(l * keys[x], prime);
+
+                        secretOutputFieldContainer.
+                            AddOutputField($"l{x + 1}; y{x + 1}l{x + 1}").Value = $"{l}; {yl[x]}";
                     }
 
-                    float calculatedSecret = 0;
-                    for (int x = 0; x < l.Length; x++)
+                    int calculatedSecret = 0;
+                    for (int x = 0; x < yl.Length; x++)
                     {
-                        float yl = l[x] * keys[x];
-                        calculatedSecret += yl;
+                        calculatedSecret += yl[x];
                     }
-                    calculatedSecret = (calculatedSecret % prime + prime) % prime;
+                    calculatedSecret = MathG.Mod(calculatedSecret, prime);
 
                     secretOutputFieldContainer.AddOutputField("Calculated Secret").Value = (calculatedSecret).ToString();
                 }
@@ -151,7 +156,7 @@ public class SecretShamirViewModel : MonoBehaviour
                 {
                     Debug.Log(e.Message);
                 }
-            })
+            }))
             .AddTo(this);
     }
 }
