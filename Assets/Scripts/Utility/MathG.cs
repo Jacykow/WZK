@@ -49,12 +49,17 @@ public struct MathG
 
     public static int ModPow(int a, int b, int m)
     {
-        a %= m;
-        int result = 1;
+        return (int)ModPow(a, b, (ulong)m);
+    }
+
+    public static ulong ModPow(int a, int b, ulong m)
+    {
+        ulong result = 1;
+        ulong aLong = (ulong)a % m;
         while (b > 0)
         {
-            if ((b & 1) > 0) result = (result * a) % m;
-            a = (a * a) % m;
+            if ((b & 1) > 0) result = (result * aLong) % m;
+            aLong = (aLong * aLong) % m;
             b >>= 1;
         }
         return result;
@@ -79,5 +84,18 @@ public struct MathG
             }
         }
         return true;
+    }
+
+    public static int GCD(int a, int b)
+    {
+        while (a != 0 && b != 0)
+        {
+            if (a > b)
+                a %= b;
+            else
+                b %= a;
+        }
+
+        return a | b;
     }
 }
