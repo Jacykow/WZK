@@ -30,23 +30,38 @@ public class CipherModeComparisonViewModel : MonoBehaviour
         var plainText = File.ReadAllText(path);
         outputFieldContainer.Clear();
 
-        string message;
         foreach (CipherMode cipherMode in Enum.GetValues(typeof(CipherMode)))
         {
+            string encryptedText;
+            string cipherModeName = Enum.GetName(typeof(CipherMode), cipherMode);
             try
             {
                 var startTime = DateTime.Now;
-                var encryptedtext = Cryptography.Encrypt(plainText, cipherMode);
-                var decryptedtext = Cryptography.Decrypt(encryptedtext, cipherMode);
-                message = DateTime.Now.Subtract(startTime).TotalMilliseconds.ToString("0.##") + " ms";
-                textFieldContainer.Clear();
-                textFieldContainer.AddLongOutputField($"Decrypted Text with {Enum.GetName(typeof(CipherMode), cipherMode)}").Value = decryptedtext.Substring(0, 2000);
+                encryptedText = Cryptography.Encrypt(plainText, cipherMode);
+                string message = DateTime.Now.Subtract(startTime).TotalSeconds.ToString("0.##") + " s";
+                outputFieldContainer.AddOutputField(cipherModeName + " encryption").Value = message;
             }
             catch
             {
-                message = "Not Supported";
+                outputFieldContainer.AddOutputField(cipherModeName).Value = "Not Supported";
+                continue;
             }
-            outputFieldContainer.AddOutputField(Enum.GetName(typeof(CipherMode), cipherMode)).Value = message;
+            yield return null;
+
+            try
+            {
+                var startTime = DateTime.Now;
+                var decryptedText = Cryptography.Decrypt(encryptedText, cipherMode);
+                string message = DateTime.Now.Subtract(startTime).TotalSeconds.ToString("0.##") + " s";
+                outputFieldContainer.AddOutputField(cipherModeName + " decryption").Value = message;
+
+                textFieldContainer.Clear();
+                textFieldContainer.AddLongOutputField($"Decrypted Text with {Enum.GetName(typeof(CipherMode), cipherMode)}").Value = decryptedText.Substring(0, 2000);
+            }
+            catch
+            {
+
+            }
             yield return null;
         }
     }

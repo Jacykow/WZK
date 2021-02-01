@@ -10,8 +10,10 @@ public class DiffieHellmanViewModel : MonoBehaviour
     {
         inputFieldContainer.AddMenuButton();
 
-        var nField = inputFieldContainer.AddInputField("n", "7919");
-        var gField = inputFieldContainer.AddInputField("g", "49");
+        int n = UnityEngine.Random.Range(1000, 9999);
+        int g = MathG.NextPrime(UnityEngine.Random.Range(1, n));
+        var nField = inputFieldContainer.AddInputField("n", n.ToString());
+        var gField = inputFieldContainer.AddInputField("g", g.ToString());
         var privateXField = inputFieldContainer.AddInputField("A: private x", "1337");
         var privateYField = inputFieldContainer.AddInputField("B: private y", "997");
 
@@ -26,8 +28,8 @@ public class DiffieHellmanViewModel : MonoBehaviour
                 outputFieldContainer.Clear();
                 try
                 {
-                    int n = int.Parse(nField.Value);
-                    int g = int.Parse(gField.Value);
+                    n = int.Parse(nField.Value);
+                    g = int.Parse(gField.Value);
                     int privateX = int.Parse(privateXField.Value);
                     int privateY = int.Parse(privateYField.Value);
 
